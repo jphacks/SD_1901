@@ -8,6 +8,8 @@
     <basic-button color="aqua" >
       <file-icon />
     </basic-button>
+    <url-item />
+    <url-content />
     <router-view/>
   </div>
 </template>
@@ -15,9 +17,16 @@
 <script>
 import FileIcon from 'vue-material-design-icons/Image.vue';
 import BasicButton from './components/BasicButton.vue';
+import UrlItem from './components/UrlItem.vue';
+import UrlContent from './components/UrlContent.vue';
 
 export default {
-  components: { BasicButton, FileIcon },
+  components: {
+    BasicButton,
+    FileIcon,
+    UrlItem,
+    UrlContent,
+  },
 };
 </script>
 
