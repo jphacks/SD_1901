@@ -44,5 +44,15 @@ dependencies {
     implementation platform('software.amazon.awssdk:bom:2.10.0')
     implementation 'software.amazon.awssdk:s3'
 
+    implementation "org.jetbrains.exposed:exposed:0.17.6"
+    implementation "org.postgresql:postgresql:42.2.8"
+    implementation "com.zaxxer:HikariCP:3.4.1"
+
     testCompile "io.ktor:ktor-server-tests:$ktor_version"
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
