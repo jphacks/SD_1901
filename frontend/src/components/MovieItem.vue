@@ -2,7 +2,7 @@
     <basic-button
     @click="() => $emit('click')"
     color="blue"
-    :image="item_id"
+    :image="src"
     >
     <play-circle-icon />
     </basic-button>
@@ -11,11 +11,18 @@
 <script>
 import PlayCircleIcon from 'vue-material-design-icons/PlayCircle.vue';
 import BasicButton from './BasicButton.vue';
+import Api from '../js/api';
 
 export default {
   components: { PlayCircleIcon, BasicButton },
   props: {
-    item_id: String,
+    desk_id: String,
+    thumbnail_id: String,
+  },
+  computed: {
+    src() {
+      return Api.getFileURL(this.desk_id, this.thumbnail_id);
+    },
   },
 };
 </script>

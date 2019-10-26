@@ -7,6 +7,11 @@ app.listen(port, () => {
     console.log(`testserver is listing on port ${port}`);
 });
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  next();
+});
+
 app.put('/desk', (req, res) => {
     res.json({
         "desk_id": "rBlwQRzrRRENGZJU"
@@ -77,6 +82,10 @@ app.get('/desk/rBlwQRzrRRENGZJU/3XiKdpkh8Y2nanX4', (req, res) => {
     res.sendFile('thumbnails/op.png', { "root": __dirname } );
 });
 
+app.get('/desk/rBlwQRzrRRENGZJU/GNP06huCXAp1S0mh', (_, res) => {
+    res.send('https://uzimaru.com');
+});
+
 function itemsSender(res) {
     res.json({
         "item_info_list": [
@@ -101,23 +110,23 @@ function itemsSender(res) {
             {
                 "item_id": "tH6hkGf8Nc5ON49O",
                 "name": "筋肉.png",
-                "type": "file"
-            },    
+                "type": "image"
+            },
             {
                 "item_id": "7u4iddZfOeElO7rJ",
                 "name": "俯瞰図.png",
-                "type": "file"
+                "type": "image"
             },
             {
                 "item_id": "2z13qkrQfALfXvfP",
                 "name": "op.mp4",
-                "type": "file",
+                "type": "video",
                 "thumbnail_id": "3XiKdpkh8Y2nanX4",
             },
             {
                 "item_id": "4WvT1gdUVkEBTLGm",
                 "name": "yamada.mp3",
-                "type": "file"
+                "type": "audio"
             },
             {
                 "item_id": "GNP06huCXAp1S0mh",

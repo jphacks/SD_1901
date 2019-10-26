@@ -27,15 +27,18 @@ const contents = {
   text: TextContent,
 };
 
-const toContent = data => (contents[data.type] ? h => h(contents[data.type], { ...data }) : null);
+const toContent = data => (contents[data.type]
+  ? h => h(contents[data.type], { props: data })
+  : null);
 
 const toComponent = (data, callback) => {
   const attr = {
-    ...data,
+    props: data,
     on: {
       click: () => callback(toContent(data)),
     },
   };
+
   return h => h(components[data.type] || 'div', attr);
 };
 

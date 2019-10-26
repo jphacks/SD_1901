@@ -7,7 +7,7 @@
       </button>
     </div>
     <figure class="qr">
-      <img :src="qr_id" />
+      <img :src="qrImage" />
     </figure>
     <toast :show="toastState">クリップボードにコピーしました</toast>
   </div>
@@ -16,19 +16,26 @@
 <script>
 import ClipIcon from 'vue-material-design-icons/Clipboard.vue';
 import Toast from './Toast.vue';
+import Api from '../js/api';
+import Repo from '../js/repository';
 
 export default {
   props: {
+    desk_id: String,
     item_id: String,
     qr_id: String,
   },
   components: { ClipIcon, Toast },
   data() {
     return {
-      url: 'https://example.com',
-      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/QR_code_desktop_Japanese_Wikipedia.svg/1200px-QR_code_desktop_Japanese_Wikipedia.svg.png',
       toastState: false,
+      url: '',
     };
+  },
+  computed: {
+    qrImage() {
+      return Api.getFileURL(this.desk_id, this.qr_id);
+    },
   },
   methods: {
     toClipBoard() {
@@ -42,6 +49,12 @@ export default {
           }, 2000);
         });
     },
+    async getURL() {
+      this.url = await Repo.getFile(this.$store)(this.desk_id, this.item_id);
+    },
+  },
+  created() {
+    this.getURL();
   },
 };
 </script>
