@@ -1,0 +1,14 @@
+version: "3"
+services:
+  app:
+    image: yt8492/snorlax:latest
+    container_name: "snorlax-app"
+    ports:
+      - "8492:8080"
+    environment:
+      DB_URL: jdbc:postgresql://snorlax-database-is-not-grate.cggpszg7gewr.us-east-1.rds.amazonaws.com:1194/
+      DB_USER: postgres
+      DB_PASSWORD: password
+      AWS_ACCESS_KEY_ID: password
+      AWS_SECRET_ACCESS_KEY: password
+      S3_URL: https://snorlax-bucket.s3.amazonaws.com/
