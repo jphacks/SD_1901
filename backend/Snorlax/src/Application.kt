@@ -48,22 +48,7 @@ fun Application.module(testing: Boolean = false) {
 
     install(DefaultHeaders)
 
-    install(CORS) {
-        method(HttpMethod.Options)
-        method(HttpMethod.Get)
-        method(HttpMethod.Post)
-        method(HttpMethod.Put)
-        method(HttpMethod.Delete)
-        method(HttpMethod.Patch)
-        header(HttpHeaders.XForwardedProto)
-        header(HttpHeaders.AccessControlAllowHeaders)
-        header(HttpHeaders.AccessControlAllowOrigin)
-        header(HttpHeaders.ContentType)
-        header(HttpHeaders.AccessControlRequestHeaders)
-        header(HttpHeaders.AccessControlAllowMethods)
-        header(HttpHeaders.AccessControlRequestMethod)
-        anyHost()
-    }
+    install(CORS)
 
     install(ContentNegotiation) {
         serialization()
