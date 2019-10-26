@@ -10,6 +10,7 @@ const colors = {
   red: '#f44336',
   black: '#3c3c3c',
   white: '#ffffff',
+  grey: '#9e9e9e',
 };
 
 const fromString = str => colors[str] || '#ffffff';
