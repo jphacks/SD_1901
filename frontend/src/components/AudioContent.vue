@@ -7,11 +7,18 @@
 
 <script>
 import MusicIcon from 'vue-material-design-icons/Music.vue';
+import Api from '../js/api';
 
 export default {
   components: { MusicIcon },
   props: {
-    src: String,
+    desk_id: String,
+    item_id: String,
+  },
+  computed: {
+    src() {
+      return Api.getFileURL(this.desk_id, this.item_id);
+    },
   },
 };
 </script>
