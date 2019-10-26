@@ -1,5 +1,3 @@
-export const color = str => colors[str] || '#ffffff';
-
 const colors = {
   aqua: '#4dd0e1',
   lime: '#cddc39',
@@ -11,5 +9,9 @@ const colors = {
   blue: '#3f51b5',
   red: '#f44336',
   black: '#3c3c3c',
-  white: '#ffffff'
+  white: '#ffffff',
 };
+
+const fromString = str => colors[str] || '#ffffff';
+
+export default { fromString };

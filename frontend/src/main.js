@@ -1,4 +1,5 @@
 import 'vue-material-design-icons/styles.css';
+import './styles/constant.css';
 
 import Vue from 'vue';
 
