@@ -1,13 +1,29 @@
 <template>
    <div class="text-content-style">
-       <span>{{ item_id }}</span>
+       <span>{{ text }}</span>
    </div>
 </template>
 
 <script>
+import Repo from '../js/repository';
+
 export default {
   props: {
+    desk_id: String,
     item_id: String,
+  },
+  data() {
+    return {
+      text: '',
+    };
+  },
+  methods: {
+    async getData() {
+      this.text = await Repo.getFile(this.$store)(this.desk_id, this.item_id);
+    },
+  },
+  created() {
+    this.getData();
   },
 };
 </script>

@@ -21,7 +21,7 @@ const routes = [
   {
     path: '/desk/:id',
     name: 'desk',
-    component: () => import(/* webpackChunkName: "desk" */ '../views/Room.vue'),
+    component: () => import(/* webpackChunkName: "desk" */ '../views/Desk.vue'),
   },
 ];
 

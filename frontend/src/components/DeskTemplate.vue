@@ -23,6 +23,10 @@ import Items from '../js/items';
 
 export default {
   components: { Storage, Upload, Modal },
+  props: {
+    items: Array,
+    deskId: String,
+  },
   data() {
     return {
       isDrag: false,
@@ -43,11 +47,10 @@ export default {
       return this.modalContent !== null;
     },
     renderItems() {
-      return this.items.map(x => Items.toComponent(x, this.updateModalContent));
+      return this
+        .items
+        .map(x => Items.toComponent({ ...x, desk_id: this.deskId }, this.updateModalContent));
     },
-  },
-  props: {
-    items: Array,
   },
 };
 </script>
