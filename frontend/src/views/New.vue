@@ -1,7 +1,7 @@
 <template>
     <div id="new">
         <div>
-            <new-desk-icon />
+            <new-desk-icon @click="createNewDesk"/>
             <p>create a new desk</p>
         </div>
     </div>
@@ -9,9 +9,20 @@
 
 <script>
 import NewDeskIcon from '../components/NewDeskIcon.vue';
+import api from '../js/api';
 
 export default {
   components: { NewDeskIcon },
+  methods: {
+    async createNewDesk() {
+      try {
+        const res = await api.createDesk().then(x => x.json());
+        this.$route.push(`/desk/${res.desk_id}`);
+      } catch (e) {
+        console.error(e);
+      }
+    },
+  },
 };
 </script>
 
