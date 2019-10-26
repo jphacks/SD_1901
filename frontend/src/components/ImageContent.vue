@@ -6,7 +6,7 @@
     @mouseleave="mouseLeave"
   >
     <div class="image-style-wrapper">
-        <img class="img-style" :src="image">
+        <img class="img-style" :src="id">
     </div>
     <div v-show="mouseOnFlg" class="hover-icon">
       <download-icon />
@@ -20,7 +20,7 @@ import DownloadIcon from 'vue-material-design-icons/Download.vue';
 export default {
   components: { DownloadIcon },
   props: {
-    image: String,
+    item_id: String,
   },
   data() {
     return { mouseOnFlg: false };

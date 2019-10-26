@@ -1,13 +1,13 @@
 <template>
    <div class="text-content-style">
-       <span>{{text}}</span>
+       <span>{{ item_id }}</span>
    </div>
 </template>
 
 <script>
 export default {
   props: {
-    text: String,
+    item_id: String,
   },
 };
 </script>
@@ -15,6 +15,7 @@ export default {
 <style scoped>
 .text-content-style {
     border: 10px solid var(--color-lime);
+    background: var(--color-white);
     border-radius: 30px;
     width: 60vh;
     height: 60vh;

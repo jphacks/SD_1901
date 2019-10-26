@@ -2,7 +2,7 @@
   <basic-button
     @click="() => $emit('click')"
     color="pink"
-    :image="image"
+    :image="item_id"
   >
     <image-icon />
   </basic-button>
@@ -15,7 +15,7 @@ import BasicButton from './BasicButton.vue';
 export default {
   components: { ImageIcon, BasicButton },
   props: {
-    image: String,
+    item_id: String,
   },
 };
 </script>

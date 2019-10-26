@@ -1,13 +1,13 @@
 <template>
   <div class="movie-content-wrapper">
-    <video :src="src" controls width="900" height="600" ></video>
+    <video :src="id" controls width="900" height="600" ></video>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    src: String,
+    id: String,
   },
 };
 </script>

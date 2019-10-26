@@ -1,16 +1,40 @@
-<template>
-  <div class="wrap" @click.self="() => $emit('close')">
-    <slot />
-  </div>
-</template>
-
 <script>
 export default {
+  props: {
+    content: Function,
+  },
+  methods: {
+    close(e) {
+      if (e.target !== e.currentTarget) return;
+      this.$emit('close');
+    },
+  },
   created() {
     document.body.style.overflow = 'hidden';
   },
   destroyed() {
     document.body.style.overflow = '';
+  },
+  render(createElement) {
+    const attr = {
+      class: 'wrap',
+      on: {
+        click: this.close,
+      },
+    };
+
+    if (this.content) {
+      return createElement(
+        'div',
+        attr,
+        [this.content(createElement)],
+      );
+    }
+    return createElement(
+      'div',
+      attr,
+      this.$slots.default,
+    );
   },
 };
 </script>
