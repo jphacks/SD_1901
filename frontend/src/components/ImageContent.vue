@@ -20,7 +20,7 @@ import DownloadIcon from 'vue-material-design-icons/Download.vue';
 export default {
   components: { DownloadIcon },
   props: {
-    id: String,
+    item_id: String,
   },
   data() {
     return { mouseOnFlg: false };
