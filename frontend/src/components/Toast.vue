@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" :class="{ invisible: !show }">
+  <div class="toast-wrapper" :class="{ invisible: !show }">
     <div class="toast">
       <slot />
     </div>
@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style scoped>
-  .wrapper {
+  .toast-wrapper {
     position: fixed;
     width: 100vw;
     left: 0;

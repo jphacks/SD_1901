@@ -47,11 +47,12 @@ export default {
 };
 </script>
 
-<style scorped>
+<style scoped>
   .wrapper {
-    padding: 32px;
+    padding: 32px 128px;
     display: flex;
     flex-direction: column;
+    background-color: var(--color-white);
   }
 
   .wrapper > * {
