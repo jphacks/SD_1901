@@ -4,6 +4,9 @@ import io.ktor.application.*
 import io.ktor.response.*
 import io.ktor.request.*
 import io.ktor.features.*
+import io.ktor.http.HttpStatusCode
+import io.ktor.routing.get
+import io.ktor.routing.routing
 import io.ktor.serialization.serialization
 import org.slf4j.event.*
 
@@ -21,5 +24,9 @@ fun Application.module(testing: Boolean = false) {
         serialization()
     }
 
+    routing {
+        get("/health") {
+            call.respond(HttpStatusCode.OK, "success")
+        }
+    }
 }
-
