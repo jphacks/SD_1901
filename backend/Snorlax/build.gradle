@@ -48,6 +48,9 @@ dependencies {
     implementation "org.postgresql:postgresql:42.2.8"
     implementation "com.zaxxer:HikariCP:3.4.1"
 
+    implementation "com.google.zxing:core:3.4.0"
+    implementation "com.google.zxing:javase:3.4.0"
+
     testCompile "io.ktor:ktor-server-tests:$ktor_version"
 }
 

@@ -8,6 +8,7 @@ import com.yt8492.model.ItemInfo
 import com.yt8492.router.json.DeskIdJson
 import com.yt8492.router.json.ItemInfoJson
 import com.yt8492.router.json.ItemInfoListJson
+import com.yt8492.service.QRFactory
 import com.yt8492.service.S3Service
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
@@ -97,6 +98,21 @@ fun Route.deskRoute() {
                 } else {
                     "text"
                 }
+                if (ItemInfoRepository.isExist(param.deskId, name)) {
+                    call.respond(
+                        HttpStatusCode.Conflict,
+                        "same filename already exist"
+                    )
+                    return@post
+                }
+                val qrId = if (type == "url") {
+                    val qr = QRFactory.createQR(value)
+                    val qrId = S3Service.postFile(param.deskId, qr)
+                    ItemInfoRepository.save(qrId, param.deskId, qrId, "image/png", null, null)
+                    qrId
+                } else {
+                    null
+                }
                 val itemId = UUIDHelper.createUUID()
                 ContentRepository.save(itemId, value)
                 val itemInfo = ItemInfoRepository.save(
@@ -104,8 +120,8 @@ fun Route.deskRoute() {
                     param.deskId,
                     name,
                     type,
-                    null, // TODO: create QR when text is URL
-                    name
+                    qrId,
+                    null // TODO: create Thumbnail when file is video
                 ).let(::model2Json)
                 call.respond(
                     HttpStatusCode.OK,
@@ -170,6 +186,17 @@ fun Route.deskRoute() {
                 } else {
                     "text"
                 }
+                if (ItemInfoRepository.isExist(param.deskId, name)) {
+                    ItemInfoRepository.deleteByDeskIdAndName(param.deskId, name)
+                }
+                val qrId = if (type == "url") {
+                    val qr = QRFactory.createQR(value)
+                    val qrId = S3Service.postFile(param.deskId, qr)
+                    ItemInfoRepository.save(qrId, param.deskId, qrId, "image/png", null, null)
+                    qrId
+                } else {
+                    null
+                }
                 val itemId = UUIDHelper.createUUID()
                 ContentRepository.save(itemId, value)
                 val itemInfo = ItemInfoRepository.save(
@@ -177,8 +204,8 @@ fun Route.deskRoute() {
                     param.deskId,
                     name,
                     type,
-                    null, // TODO: create QR when text is URL
-                    name
+                    qrId,
+                    null
                 ).let(::model2Json)
                 call.respond(
                     HttpStatusCode.OK,

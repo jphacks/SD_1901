@@ -8,7 +8,7 @@ services:
     environment:
       DB_URL: jdbc:postgresql://snorlax-database-is-not-grate.cggpszg7gewr.us-east-1.rds.amazonaws.com:1194/
       DB_USER: postgres
-      DB_PASSWORD: password
-      AWS_ACCESS_KEY_ID: password
-      AWS_SECRET_ACCESS_KEY: password
+      DB_PASSWORD: snorlax-database-is-not-grate
+      AWS_ACCESS_KEY_ID: AKIAZM7MG4PUCM4VD75B
+      AWS_SECRET_ACCESS_KEY: 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
       S3_URL: https://snorlax-bucket.s3.amazonaws.com/

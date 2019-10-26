@@ -83,6 +83,6 @@ object ItemInfoRepository {
         name = itemInfoDao.name,
         type = ContentType.convert(itemInfoDao.type),
         qrId = itemInfoDao.qrId,
-        thumbnailId = itemInfoDao.qrId
+        thumbnailId = itemInfoDao.thumbnailId
     )
 }
