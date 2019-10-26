@@ -1,6 +1,6 @@
 <template>
   <div class="hover-div"
-   @click="() => $emit('click')"
+   @click="dl"
    @mouseenter="mouseEnter"
    @mouseleave="mouseLeave"
    >
@@ -17,11 +17,22 @@
 import FileIcon from 'vue-material-design-icons/File.vue';
 import DownloadIcon from 'vue-material-design-icons/Download.vue';
 import BasicButton from './BasicButton.vue';
+import Api from '../js/api';
 
 export default {
   components: { FileIcon, DownloadIcon, BasicButton },
+  props: {
+    desk_id: String,
+    item_id: String,
+    name: String,
+  },
   data() {
     return { mouseOnFlg: false };
+  },
+  computed: {
+    src() {
+      return Api.getFileURL(this.desk_id, this.item_id);
+    },
   },
   methods: {
     mouseEnter() {
@@ -29,6 +40,14 @@ export default {
     },
     mouseLeave() {
       this.mouseOnFlg = false;
+    },
+    async dl() {
+      const blob = await fetch(this.src).then(x => x.blob());
+
+      const anchor = document.createElement('a');
+      anchor.href = window.URL.createObjectURL(blob);
+      anchor.download = this.name;
+      anchor.click();
     },
   },
 };

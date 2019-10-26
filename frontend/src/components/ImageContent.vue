@@ -1,7 +1,7 @@
 <template>
   <div
     class="image-wrapper"
-    @click="() => $emit('click')"
+    @click="dlImage"
     @mouseenter="mouseEnter"
     @mouseleave="mouseLeave"
   >
@@ -23,6 +23,7 @@ export default {
   props: {
     desk_id: String,
     item_id: String,
+    name: String,
   },
   computed: {
     src() {
@@ -38,6 +39,14 @@ export default {
     },
     mouseLeave() {
       this.mouseOnFlg = false;
+    },
+    async dlImage() {
+      const blob = await fetch(this.src).then(x => x.blob());
+
+      const anchor = document.createElement('a');
+      anchor.href = window.URL.createObjectURL(blob);
+      anchor.download = this.name;
+      anchor.click();
     },
   },
 };
