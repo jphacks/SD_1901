@@ -37,6 +37,9 @@ export default {
         {
           type: 'audio',
         },
+        {
+          type: 'text',
+        },
       ],
     };
   },
