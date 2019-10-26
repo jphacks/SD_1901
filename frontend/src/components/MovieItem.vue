@@ -1,7 +1,8 @@
 <template>
     <basic-button
+    @click="() => $emit('click')"
     color="blue"
-    :image="image"
+    :image="item_id"
     >
     <play-circle-icon />
     </basic-button>
@@ -14,7 +15,7 @@ import BasicButton from './BasicButton.vue';
 export default {
   components: { PlayCircleIcon, BasicButton },
   props: {
-    image: String,
+    item_id: String,
   },
 };
 </script>

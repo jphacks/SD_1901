@@ -1,6 +1,5 @@
 <template>
   <div class="wrapper">
-    <div class="content-name">{{ contentName }}</div>
     <div class="link">
       <a :href="url">{{ url }}</a>
       <button class="clip-btn" @click="toClipBoard">
@@ -8,7 +7,7 @@
       </button>
     </div>
     <figure class="qr">
-      <img :src="image" />
+      <img :src="qr_id" />
     </figure>
     <toast :show="toastState">クリップボードにコピーしました</toast>
   </div>
@@ -20,12 +19,12 @@ import Toast from './Toast.vue';
 
 export default {
   props: {
-    id: String,
+    item_id: String,
+    qr_id: String,
   },
   components: { ClipIcon, Toast },
   data() {
     return {
-      contentName: 'ContentName',
       url: 'https://example.com',
       image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/QR_code_desktop_Japanese_Wikipedia.svg/1200px-QR_code_desktop_Japanese_Wikipedia.svg.png',
       toastState: false,
@@ -61,10 +60,6 @@ export default {
 
   .wrapper > *:last-child {
     margin-bottom: 0;
-  }
-
-  .content-name {
-    font-size: 48px;
   }
 
   .link {

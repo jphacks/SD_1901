@@ -7,7 +7,7 @@ export default {
     return createElement(
       'div',
       { class: 'grid' },
-      this.items.map(func => func(createElement)),
+      this.items ? this.items.map(func => func(createElement)) : null,
     );
   },
 };
