@@ -1,12 +1,25 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <basic-button
+      color="red"
+      image="https://avatars0.githubusercontent.com/u/13715034?s=460&v=4" >
+      <file-icon />
+    </basic-button>
+    <basic-button color="aqua" >
+      <file-icon />
+    </basic-button>
     <router-view/>
   </div>
 </template>
+
+<script>
+import FileIcon from 'vue-material-design-icons/Image.vue';
+import BasicButton from './components/BasicButton.vue';
+
+export default {
+  components: { BasicButton, FileIcon },
+};
+</script>
 
 <style>
 #app {
