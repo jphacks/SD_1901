@@ -1,0 +1,48 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.1.0'
+    }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'application'
+apply plugin: 'kotlinx-serialization'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+group 'com.yt8492'
+version '0.0.1'
+mainClassName = "io.ktor.server.netty.EngineMain"
+
+sourceSets {
+    main.kotlin.srcDirs = main.java.srcDirs = ['src']
+    test.kotlin.srcDirs = test.java.srcDirs = ['test']
+    main.resources.srcDirs = ['resources']
+    test.resources.srcDirs = ['testresources']
+}
+
+repositories {
+    mavenLocal()
+    jcenter()
+    maven { url 'https://kotlin.bintray.com/ktor' }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    implementation "io.ktor:ktor-locations:$ktor_version"
+    implementation "io.ktor:ktor-serialization:$ktor_version"
+    implementation "io.ktor:ktor-server-netty:$ktor_version"
+    implementation "ch.qos.logback:logback-classic:$logback_version"
+    implementation "io.ktor:ktor-server-core:$ktor_version"
+
+    implementation platform('software.amazon.awssdk:bom:2.10.0')
+    implementation 'software.amazon.awssdk:s3'
+
+    testCompile "io.ktor:ktor-server-tests:$ktor_version"
+}
