@@ -1,7 +1,7 @@
 # Snorlax
 
 
-[![snolax](https://imgur.com/ATugF3b)](https://youtu.be/vliCovsp6Vc)
+[![snolax](https://i.imgur.com/ATugF3b.png)](https://youtu.be/vliCovsp6Vc)
 
 
 
