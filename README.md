@@ -1,6 +1,6 @@
-# サンプル（プロダクト名）
+# Snorlax
 
-[![Product Name](image.png)](https://www.youtube.com/watch?v=G5rULR53uMk)
+[![Snorlax](https://img.yakkun.com/poke/icon960/n143.png)](https://www.youtube.com/watch?v=G5rULR53uMk)
 
 ## 製品概要
 ### X Tech（X → 今回皆さんが選定した好きな言葉に書き換えてください）
