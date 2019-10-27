@@ -6,23 +6,20 @@ sealed class ContentType(val value: String) {
         object Uri : NotFile("url")
     }
     sealed class File(type: String) : ContentType(type) {
-        class Image(subType: String) : File("image/$subType")
-        class Video(subType: String) : File("video/$subType")
-        class Audio(subType: String) : File("audio/$subType")
+        object Image : File("image")
+        object Video : File("video")
+        object Audio : File("audio")
         object Other : File("file")
     }
 
     companion object {
-        fun convert(type: String): ContentType {
-            val subType = type.split("/").getOrNull(1)
-             return when {
-                type == "text" -> NotFile.Text
-                type == "url" -> NotFile.Uri
-                type.startsWith("image") && subType != null -> File.Image(subType)
-                type.startsWith("video") && subType != null -> File.Video(subType)
-                type.startsWith("audio") && subType != null -> File.Audio(subType)
-                else -> File.Other
-            }
+        fun convert(type: String): ContentType = when (type) {
+            "text" -> NotFile.Text
+            "url" -> NotFile.Uri
+            "image" -> File.Image
+            "video" -> File.Video
+            "audio" -> File.Audio
+            else -> File.Other
         }
     }
 }
