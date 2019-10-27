@@ -230,9 +230,15 @@ fun Route.deskRoute() {
         call.response.header(HttpHeaders.AccessControlAllowMethods, "${HttpMethod.Get.value}, ${HttpMethod.Post.value}, ${HttpMethod.Put.value}")
         val itemInfoList = ItemInfoRepository.findAllByDeskId(param.deskId)
             .map(::model2Json)
+        val qrIdList = itemInfoList.mapNotNull {
+            it.qr_id
+        }
+        val itemInfoListWithoutQR = itemInfoList.filterNot {
+            qrIdList.contains(it.item_id)
+        }
         call.respond(
             HttpStatusCode.OK,
-            ItemInfoListJson(itemInfoList)
+            ItemInfoListJson(itemInfoListWithoutQR)
         )
     }
 }
