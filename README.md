@@ -1,11 +1,15 @@
 # Snorlax
 
-[![Snorlax](https://img.yakkun.com/poke/icon960/n143.png)](https://www.youtube.com/watch?v=G5rULR53uMk)
+[![Snorlax](https://i.gyazo.com/e3d43dbd8ec0ef1169eabcf00c2324eb.png)](https://www.youtube.com/watch?v=G5rULR53uMk)
 
 
 TODO: 動画すり替え
 
 ## 製品概要
+
+### アーキテクチャ
+[image](https://i.gyazo.com/e3d43dbd8ec0ef1169eabcf00c2324eb.png)
+
 ### 共有 X Tech
 
 ### 背景（製品開発のきっかけ、課題等）
