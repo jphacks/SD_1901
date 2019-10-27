@@ -12,6 +12,7 @@
       v-if="isDrag"
       @change="e => onChange(e.dataTransfer.files[0])"
       @close="isDrag = false" />
+
     <modal
       v-if="isModalShow"
       @close="modalContent = null"
@@ -117,7 +118,7 @@ export default {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
     grid-gap: 100px;
-    padding: 32px;
+    margin-bottom: 32px;
   }
 
   .uploads * {

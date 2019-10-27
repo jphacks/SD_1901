@@ -34,5 +34,18 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    animation: show 1500ms ease;
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+    transform: translateY(64px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
 }
 </style>
