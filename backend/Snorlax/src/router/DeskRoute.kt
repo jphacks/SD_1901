@@ -105,13 +105,6 @@ fun Route.deskRoute() {
                 } else {
                     "text"
                 }
-                if (ItemInfoRepository.isExist(param.deskId, name)) {
-                    call.respond(
-                        HttpStatusCode.Conflict,
-                        "same filename already exist"
-                    )
-                    return@post
-                }
                 val qrId = if (type == "url") {
                     val qr = QRFactory.createQR(value)
                     val qrId = S3Service.postFile(param.deskId, qr)
@@ -194,9 +187,6 @@ fun Route.deskRoute() {
                     "url"
                 } else {
                     "text"
-                }
-                if (ItemInfoRepository.isExist(param.deskId, name)) {
-                    ItemInfoRepository.deleteByDeskIdAndName(param.deskId, name)
                 }
                 val qrId = if (type == "url") {
                     val qr = QRFactory.createQR(value)
