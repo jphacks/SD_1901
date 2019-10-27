@@ -23,6 +23,8 @@ import io.ktor.response.respond
 import io.ktor.routing.Route
 import io.ktor.routing.post
 import io.ktor.util.KtorExperimentalAPI
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import java.io.File
 
 @KtorExperimentalLocationsAPI
@@ -105,24 +107,29 @@ fun Route.deskRoute() {
                 } else {
                     "text"
                 }
-                val qrId = if (type == "url") {
-                    val qr = QRFactory.createQR(value)
-                    val qrId = S3Service.postFile(param.deskId, qr)
-                    ItemInfoRepository.save(qrId, param.deskId, qrId, "image", null, null)
-                    qrId
-                } else {
-                    null
+                val qrId = async {
+                    if (type == "url") {
+                        val qr = QRFactory.createQR(value)
+                        val qrId = S3Service.postFile(param.deskId, qr)
+                        ItemInfoRepository.save(qrId, param.deskId, qrId, "image", null, null)
+                        qrId
+                    } else {
+                        null
+                    }
                 }
                 val itemId = UUIDHelper.createUUID()
-                ContentRepository.save(itemId, value)
+                val job = launch {
+                    ContentRepository.save(itemId, value)
+                }
                 val itemInfo = ItemInfoRepository.save(
                     itemId,
                     param.deskId,
                     name,
                     type,
-                    qrId,
-                    null // TODO: create Thumbnail when file is video
+                    qrId.await(),
+                    null
                 ).let(::model2Json)
+                job.join()
                 call.respond(
                     HttpStatusCode.OK,
                     itemInfo
@@ -150,8 +157,10 @@ fun Route.deskRoute() {
                     return@put
                 }
                 val type = "${part.contentType?.contentType}/${part.contentType?.contentSubtype}"
-                if (ItemInfoRepository.isExist(param.deskId, name)) {
-                    ItemInfoRepository.deleteByDeskIdAndName(param.deskId, name)
+                launch {
+                    if (ItemInfoRepository.isExist(param.deskId, name)) {
+                        ItemInfoRepository.deleteByDeskIdAndName(param.deskId, name)
+                    }
                 }
                 val file = File(name).apply {
                     part.streamProvider().buffered().use { input ->
@@ -188,24 +197,29 @@ fun Route.deskRoute() {
                 } else {
                     "text"
                 }
-                val qrId = if (type == "url") {
-                    val qr = QRFactory.createQR(value)
-                    val qrId = S3Service.postFile(param.deskId, qr)
-                    ItemInfoRepository.save(qrId, param.deskId, qrId, "image", null, null)
-                    qrId
-                } else {
-                    null
+                val qrId = async {
+                    if (type == "url") {
+                        val qr = QRFactory.createQR(value)
+                        val qrId = S3Service.postFile(param.deskId, qr)
+                        ItemInfoRepository.save(qrId, param.deskId, qrId, "image", null, null)
+                        qrId
+                    } else {
+                        null
+                    }
                 }
                 val itemId = UUIDHelper.createUUID()
-                ContentRepository.save(itemId, value)
+                val job = launch {
+                    ContentRepository.save(itemId, value)
+                }
                 val itemInfo = ItemInfoRepository.save(
                     itemId,
                     param.deskId,
                     name,
                     type,
-                    qrId,
+                    qrId.await(),
                     null
                 ).let(::model2Json)
+                job.join()
                 call.respond(
                     HttpStatusCode.OK,
                     itemInfo
