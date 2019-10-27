@@ -13,13 +13,15 @@ sealed class ContentType(val value: String) {
     }
 
     companion object {
-        fun convert(type: String): ContentType = when (type) {
-            "text" -> NotFile.Text
-            "url" -> NotFile.Uri
-            "image" -> File.Image
-            "video" -> File.Video
-            "audio" -> File.Audio
-            else -> File.Other
+        fun convert(type: String): ContentType {
+             return when {
+                type == "text" -> NotFile.Text
+                type == "url" -> NotFile.Uri
+                type.startsWith("image") -> File.Image
+                type.startsWith("video") -> File.Video
+                type.startsWith("audio") -> File.Audio
+                else -> File.Other
+            }
         }
     }
 }
