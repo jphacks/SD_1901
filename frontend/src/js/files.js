@@ -1,7 +1,7 @@
-const createFormData = (file, fileName) => {
+const createFormData = (file) => {
   const formData = new FormData();
 
-  formData.append('file', file, fileName);
+  formData.append('file', file);
   return formData;
 };
 

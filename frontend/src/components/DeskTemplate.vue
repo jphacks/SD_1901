@@ -2,11 +2,15 @@
   <div
     class="wrapper"
     @dragover="isDrag = true" >
-    <div class="uploads"></div>
+    <div class="uploads">
+      <upload-file @click="upload" />
+      <upload-url @click="uploadURLModal" />
+      <upload-text @click="uploadTextModal" />
+    </div>
     <storage :items="renderItems" />
     <upload
       v-if="isDrag"
-      @change="onChange"
+      @change="e => onChange(e.dataTransfer.files[0])"
       @close="isDrag = false" />
     <modal
       v-if="isModalShow"
@@ -19,10 +23,22 @@
 import Storage from './Storage.vue';
 import Upload from './Upload.vue';
 import Modal from './Modal.vue';
+import UploadFile from './UploadFile.vue';
+import UploadUrl from './UploadUrl.vue';
+import UploadText from './UploadText.vue';
+import UploadUrlContent from './UploadUrlContent.vue';
+import UploadTextContent from './UploadTextContent.vue';
 import Items from '../js/items';
 
 export default {
-  components: { Storage, Upload, Modal },
+  components: {
+    Storage,
+    Upload,
+    Modal,
+    UploadFile,
+    UploadUrl,
+    UploadText,
+  },
   props: {
     items: Array,
     deskId: String,
@@ -40,6 +56,40 @@ export default {
     },
     updateModalContent(f) {
       this.modalContent = f;
+    },
+    upload() {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.addEventListener('change', () => {
+        this.$emit('change', input.files[0]);
+      });
+      input.click();
+    },
+    uploadURLModal() {
+      this.modalContent = h => h(
+        UploadUrlContent,
+        {
+          on: {
+            click: (e) => {
+              this.$emit('change', e);
+              this.modalContent = null;
+            },
+          },
+        },
+      );
+    },
+    uploadTextModal() {
+      this.modalContent = h => h(
+        UploadTextContent,
+        {
+          on: {
+            click: (e) => {
+              this.$emit('change', e);
+              this.modalContent = null;
+            },
+          },
+        },
+      );
     },
   },
   computed: {
@@ -64,8 +114,13 @@ export default {
   }
 
   .uploads {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    grid-gap: 100px;
+    padding: 32px;
+  }
+
+  .uploads * {
+    margin: 0 auto;
   }
 </style>

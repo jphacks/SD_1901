@@ -23,8 +23,8 @@ export default {
     };
   },
   methods: {
-    async upload(e) {
-      const formData = File.createFormData(e.dataTransfer.files[0]);
+    async upload(file) {
+      const formData = File.createFormData(file);
       try {
         const res = await Api.uploadFile(this.deskId, formData).then(x => x.json());
         console.log(res);
