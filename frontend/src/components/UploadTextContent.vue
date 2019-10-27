@@ -34,7 +34,8 @@ export default {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    font-size: 24px
+    font-size: 24px;
+    background-color: var(--color-white);
 }
 
 .upload-textarea-style {

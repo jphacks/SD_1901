@@ -2,7 +2,7 @@ const BASE_URL = 'http://localhost:3000';
 
 const request = (endpoint, opt) => fetch(`${BASE_URL}${endpoint}`, opt);
 
-const createDesk = () => request('/desk', { method: 'PUT' });
+const createDesk = () => request('/desk', { method: 'POST' });
 
 const getDesk = deskId => request(`/desk/${deskId}`);
 
