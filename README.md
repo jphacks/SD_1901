@@ -8,7 +8,7 @@ TODO: 動画すり替え
 ## 製品概要
 
 ### アーキテクチャ
-[image](https://i.gyazo.com/e3d43dbd8ec0ef1169eabcf00c2324eb.png)
+![image](https://i.gyazo.com/e3d43dbd8ec0ef1169eabcf00c2324eb.png)
 
 ### 共有 X Tech
 
