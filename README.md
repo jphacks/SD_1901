@@ -1,6 +1,6 @@
 # Snorlax
 
-[Snorlax](https://youtu.be/vliCovsp6Vc)
+![Snorlax](https://youtu.be/vliCovsp6Vc)
 
 
 
