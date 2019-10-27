@@ -1,9 +1,8 @@
 # Snorlax
 
-[![Snorlax](https://i.gyazo.com/e3d43dbd8ec0ef1169eabcf00c2324eb.png)](https://www.youtube.com/watch?v=G5rULR53uMk)
+[Snorlax](https://youtu.be/vliCovsp6Vc)
 
 
-TODO: 動画すり替え
 
 ## 製品概要
 
