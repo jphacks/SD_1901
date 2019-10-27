@@ -6,6 +6,7 @@
       <upload-file @click="upload" />
       <upload-url @click="uploadURLModal" />
       <upload-text @click="uploadTextModal" />
+      <share-button />
     </div>
     <storage :items="renderItems" />
     <upload
@@ -29,6 +30,7 @@ import UploadUrl from './UploadUrl.vue';
 import UploadText from './UploadText.vue';
 import UploadUrlContent from './UploadUrlContent.vue';
 import UploadTextContent from './UploadTextContent.vue';
+import ShareButton from './ShareButton.vue';
 import Items from '../js/items';
 
 export default {
@@ -39,6 +41,7 @@ export default {
     UploadFile,
     UploadUrl,
     UploadText,
+    ShareButton,
   },
   props: {
     items: Array,
