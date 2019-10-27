@@ -4,11 +4,11 @@ services:
     image: yt8492/snorlax:latest
     container_name: "snorlax-app"
     ports:
-      - "8492:8080"
+      - "3000:8080"
     environment:
       DB_URL: jdbc:postgresql://snorlax-database-is-not-grate.cggpszg7gewr.us-east-1.rds.amazonaws.com:1194/
       DB_USER: postgres
-      DB_PASSWORD: snorlax-database-is-not-grate
-      AWS_ACCESS_KEY_ID: AKIAZM7MG4PUCM4VD75B
-      AWS_SECRET_ACCESS_KEY: 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
+      DB_PASSWORD: hogehoge
+      AWS_ACCESS_KEY_ID: hogehoge
+      AWS_SECRET_ACCESS_KEY: hogehoge
       S3_URL: https://snorlax-bucket.s3.amazonaws.com/

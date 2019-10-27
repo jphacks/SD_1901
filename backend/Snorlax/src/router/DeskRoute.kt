@@ -11,21 +11,26 @@ import com.yt8492.router.json.ItemInfoListJson
 import com.yt8492.service.QRFactory
 import com.yt8492.service.S3Service
 import io.ktor.application.call
+import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.content.PartData
 import io.ktor.http.content.streamProvider
 import io.ktor.locations.*
 import io.ktor.request.receiveMultipart
+import io.ktor.response.header
 import io.ktor.response.respond
 import io.ktor.routing.Route
-import io.ktor.routing.put
+import io.ktor.routing.post
 import io.ktor.util.KtorExperimentalAPI
 import java.io.File
 
 @KtorExperimentalLocationsAPI
 @KtorExperimentalAPI
 fun Route.deskRoute() {
-    put("/desk") {
+    post("/desk") {
+        call.response.header(HttpHeaders.AccessControlAllowOrigin, "*")
+        call.response.header(HttpHeaders.AccessControlAllowMethods, "${HttpMethod.Get.value}, ${HttpMethod.Post.value}, ${HttpMethod.Put.value}")
         val deskId = UUIDHelper.createUUID()
         DeskRepository.save(deskId)
         call.respond(
@@ -37,6 +42,8 @@ fun Route.deskRoute() {
     @Location("/desk/{deskId}")
     data class DeskRequest(val deskId: String)
     post<DeskRequest> { param ->
+        call.response.header(HttpHeaders.AccessControlAllowOrigin, "*")
+        call.response.header(HttpHeaders.AccessControlAllowMethods, "${HttpMethod.Get.value}, ${HttpMethod.Post.value}, ${HttpMethod.Put.value}")
         val multipart = call.receiveMultipart()
         val part = multipart.readPart() ?: run {
             call.respond(HttpStatusCode.BadRequest, "multipart is null")
@@ -108,7 +115,7 @@ fun Route.deskRoute() {
                 val qrId = if (type == "url") {
                     val qr = QRFactory.createQR(value)
                     val qrId = S3Service.postFile(param.deskId, qr)
-                    ItemInfoRepository.save(qrId, param.deskId, qrId, "image/png", null, null)
+                    ItemInfoRepository.save(qrId, param.deskId, qrId, "image", null, null)
                     qrId
                 } else {
                     null
@@ -133,6 +140,8 @@ fun Route.deskRoute() {
     }
 
     put<DeskRequest> { param ->
+        call.response.header(HttpHeaders.AccessControlAllowOrigin, "*")
+        call.response.header(HttpHeaders.AccessControlAllowMethods, "${HttpMethod.Get.value}, ${HttpMethod.Post.value}, ${HttpMethod.Put.value}")
         val multipart = call.receiveMultipart()
         val part = multipart.readPart() ?: run {
             call.respond(HttpStatusCode.BadRequest, "multipart is null")
@@ -192,7 +201,7 @@ fun Route.deskRoute() {
                 val qrId = if (type == "url") {
                     val qr = QRFactory.createQR(value)
                     val qrId = S3Service.postFile(param.deskId, qr)
-                    ItemInfoRepository.save(qrId, param.deskId, qrId, "image/png", null, null)
+                    ItemInfoRepository.save(qrId, param.deskId, qrId, "image", null, null)
                     qrId
                 } else {
                     null
@@ -217,6 +226,8 @@ fun Route.deskRoute() {
     }
 
     get<DeskRequest> { param ->
+        call.response.header(HttpHeaders.AccessControlAllowOrigin, "*")
+        call.response.header(HttpHeaders.AccessControlAllowMethods, "${HttpMethod.Get.value}, ${HttpMethod.Post.value}, ${HttpMethod.Put.value}")
         val itemInfoList = ItemInfoRepository.findAllByDeskId(param.deskId)
             .map(::model2Json)
         call.respond(
