@@ -7,22 +7,19 @@ import com.yt8492.router.deskRoute
 import com.yt8492.router.itemRoute
 import io.ktor.application.*
 import io.ktor.response.*
-import io.ktor.request.*
 import io.ktor.features.*
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
-import io.ktor.http.content.PartData
 import io.ktor.locations.KtorExperimentalLocationsAPI
 import io.ktor.locations.Locations
 import io.ktor.routing.get
-import io.ktor.routing.post
+import io.ktor.routing.options
 import io.ktor.routing.routing
 import io.ktor.serialization.serialization
 import io.ktor.util.KtorExperimentalAPI
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
-import org.slf4j.event.*
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -37,39 +34,20 @@ fun Application.module(testing: Boolean = false) {
         SchemaUtils.create(Contents, DeskIds, ItemInfos)
     }
 
-    install(CallLogging) {
-        level = Level.INFO
-        filter { call -> call.request.path().startsWith("/") }
-    }
+    install(CallLogging)
 
     install(Locations)
-
-    install(ForwardedHeaderSupport)
-
-    install(DefaultHeaders)
-
-    install(CORS) {
-        method(HttpMethod.Options)
-        method(HttpMethod.Get)
-        method(HttpMethod.Post)
-        method(HttpMethod.Put)
-        method(HttpMethod.Delete)
-        method(HttpMethod.Patch)
-        header(HttpHeaders.XForwardedProto)
-        header(HttpHeaders.AccessControlAllowHeaders)
-        header(HttpHeaders.AccessControlAllowOrigin)
-        header(HttpHeaders.ContentType)
-        header(HttpHeaders.AccessControlRequestHeaders)
-        header(HttpHeaders.AccessControlAllowMethods)
-        header(HttpHeaders.AccessControlRequestMethod)
-        anyHost()
-    }
 
     install(ContentNegotiation) {
         serialization()
     }
 
     routing {
+        options("/*") {
+            call.response.header(HttpHeaders.AccessControlAllowOrigin, "*")
+            call.response.header(HttpHeaders.AccessControlAllowMethods, "${HttpMethod.Get.value}, ${HttpMethod.Post.value}, ${HttpMethod.Put.value}")
+            call.respond(HttpStatusCode.OK)
+        }
         get("/health") {
             call.respond(HttpStatusCode.OK, "success")
         }
