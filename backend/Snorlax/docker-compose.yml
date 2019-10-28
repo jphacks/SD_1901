@@ -6,9 +6,9 @@ services:
     ports:
       - "3000:8080"
     environment:
-      DB_URL: jdbc:postgresql://snorlax-database-is-not-grate.cggpszg7gewr.us-east-1.rds.amazonaws.com:1194/
-      DB_USER: postgres
-      DB_PASSWORD: hoge
-      AWS_ACCESS_KEY_ID: hoge
-      AWS_SECRET_ACCESS_KEY: hoge
-      S3_URL: https://snorlax-bucket.s3.amazonaws.com/
+      DB_URL: ${DB_URL}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      S3_URL: ${S3_URL}
