@@ -38,16 +38,17 @@ fun Application.module(testing: Boolean = false) {
 
     install(Locations)
 
+    install(CORS) {
+        host("localhost:8080")
+        allowSameOrigin = false
+        method(HttpMethod.Put)
+    }
+
     install(ContentNegotiation) {
         serialization()
     }
 
     routing {
-        options("/*") {
-            call.response.header(HttpHeaders.AccessControlAllowOrigin, "*")
-            call.response.header(HttpHeaders.AccessControlAllowMethods, "${HttpMethod.Get.value}, ${HttpMethod.Post.value}, ${HttpMethod.Put.value}")
-            call.respond(HttpStatusCode.OK)
-        }
         get("/health") {
             call.respond(HttpStatusCode.OK, "success")
         }

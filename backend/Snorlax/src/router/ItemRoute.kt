@@ -6,13 +6,10 @@ import com.yt8492.infra.repository.ItemInfoRepository
 import com.yt8492.model.ContentType
 import com.yt8492.service.S3Service
 import io.ktor.application.call
-import io.ktor.http.HttpHeaders
-import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.locations.KtorExperimentalLocationsAPI
 import io.ktor.locations.Location
 import io.ktor.locations.get
-import io.ktor.response.header
 import io.ktor.response.respond
 import io.ktor.response.respondFile
 import io.ktor.response.respondText
@@ -25,8 +22,6 @@ fun Route.itemRoute() {
     @Location("/desk/{deskId}/{itemId}")
     data class ItemRequest(val deskId: String, val itemId: String)
     get<ItemRequest> { param ->
-        call.response.header(HttpHeaders.AccessControlAllowOrigin, "*")
-        call.response.header(HttpHeaders.AccessControlAllowMethods, "${HttpMethod.Get.value}, ${HttpMethod.Post.value}, ${HttpMethod.Put.value}")
         if (DeskRepository.isNotExist(param.deskId)) {
             call.respond(
                 HttpStatusCode.BadRequest,
