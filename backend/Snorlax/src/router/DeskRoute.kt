@@ -31,8 +31,6 @@ import java.io.File
 @KtorExperimentalAPI
 fun Route.deskRoute() {
     post("/desk") {
-        call.response.header(HttpHeaders.AccessControlAllowOrigin, "*")
-        call.response.header(HttpHeaders.AccessControlAllowMethods, "${HttpMethod.Get.value}, ${HttpMethod.Post.value}, ${HttpMethod.Put.value}")
         val deskId = UUIDHelper.createUUID()
         DeskRepository.save(deskId)
         call.respond(
@@ -44,8 +42,6 @@ fun Route.deskRoute() {
     @Location("/desk/{deskId}")
     data class DeskRequest(val deskId: String)
     post<DeskRequest> { param ->
-        call.response.header(HttpHeaders.AccessControlAllowOrigin, "*")
-        call.response.header(HttpHeaders.AccessControlAllowMethods, "${HttpMethod.Get.value}, ${HttpMethod.Post.value}, ${HttpMethod.Put.value}")
         val multipart = call.receiveMultipart()
         val part = multipart.readPart() ?: run {
             call.respond(HttpStatusCode.BadRequest, "multipart is null")
@@ -140,8 +136,6 @@ fun Route.deskRoute() {
     }
 
     put<DeskRequest> { param ->
-        call.response.header(HttpHeaders.AccessControlAllowOrigin, "*")
-        call.response.header(HttpHeaders.AccessControlAllowMethods, "${HttpMethod.Get.value}, ${HttpMethod.Post.value}, ${HttpMethod.Put.value}")
         val multipart = call.receiveMultipart()
         val part = multipart.readPart() ?: run {
             call.respond(HttpStatusCode.BadRequest, "multipart is null")
@@ -230,8 +224,7 @@ fun Route.deskRoute() {
     }
 
     get<DeskRequest> { param ->
-        call.response.header(HttpHeaders.AccessControlAllowOrigin, "*")
-        call.response.header(HttpHeaders.AccessControlAllowMethods, "${HttpMethod.Get.value}, ${HttpMethod.Post.value}, ${HttpMethod.Put.value}")
+
         val itemInfoList = ItemInfoRepository.findAllByDeskId(param.deskId)
             .map(::model2Json)
         val qrIdList = itemInfoList.mapNotNull {

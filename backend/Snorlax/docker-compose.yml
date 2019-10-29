@@ -8,7 +8,7 @@ services:
     environment:
       DB_URL: ${DB_URL}
       DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD
+      DB_PASSWORD: ${DB_PASSWORD}
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
       S3_URL: ${S3_URL}
