@@ -39,7 +39,7 @@ fun Application.module(testing: Boolean = false) {
     install(Locations)
 
     install(CORS) {
-        host("localhost:8080")
+        anyHost()
         allowSameOrigin = false
         method(HttpMethod.Put)
     }
