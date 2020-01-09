@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = process.env.VUE_APP_HOST;
 
 const request = (endpoint, opt) => fetch(`${BASE_URL}${endpoint}`, opt);
 
