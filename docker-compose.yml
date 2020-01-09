@@ -1,10 +1,8 @@
 version: "3"
 services:
-  app:
+  back:
     image: yt8492/snorlax:latest
     container_name: "snorlax-back"
-    ports:
-      - "3000:8080"
     environment:
       DB_URL: ${DB_URL}
       DB_USER: ${DB_USER}
@@ -17,5 +15,3 @@ services:
     container_name: "snorlax-front"
     ports:
       - "8080:80"
-    environnment:
-      VUE_APP_HOST: http://app:8080
